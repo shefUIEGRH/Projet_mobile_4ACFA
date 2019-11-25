@@ -13,7 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment fragment = null;
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                   Fragment fragment = null;
 
                     switch(menuItem.getItemId()){
                         case R.id.nav_entree:
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
 
+                    assert fragment != null;
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                     return true;
                 }
