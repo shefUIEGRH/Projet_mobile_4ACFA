@@ -1,21 +1,25 @@
 package com.example.projetmobile_4acfa.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.projetmobile_4acfa.R;
 import com.example.projetmobile_4acfa.controller.MainController;
 import com.example.projetmobile_4acfa.model.Cooking;
 import com.example.projetmobile_4acfa.views.adapter.MyAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -31,6 +35,9 @@ public class MainActivity extends Activity {
 
         myController = new MainController(this, getSharedPreferences("key", Context.MODE_PRIVATE));
         myController.onStart();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
 
     public void showList(List<Cooking> input){
@@ -54,4 +61,29 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(mAdapter);
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    Fragment fragment = null;
+
+                    switch(menuItem.getItemId()){
+                        case R.id.nav_entree:
+                            fragment = new EntreeFragment();
+                            break;
+
+                        case R.id.nav_plat:
+                            fragment = new PlatFragment();
+                            break;
+
+                        case R.id.nav_dessert:
+                            fragment = new DessertFragment();
+                            break;
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                    return true;
+                }
+            };
 }
