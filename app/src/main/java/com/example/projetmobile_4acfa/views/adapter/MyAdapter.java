@@ -71,6 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava>{
         // - replace the contents of the view with that element
         final Cooking currentRecette = recettes.get(position);
         final String name = currentRecette.getName();
+        final String categorie = currentRecette.getCategory();
 
         holder.txtHeader.setText(name);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +82,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava>{
 
 
         });
-        holder.txtFooter.setText("Footer " + name);
+        holder.txtFooter.setText("Catégorie : " + categorie);
     }
 
     @Override

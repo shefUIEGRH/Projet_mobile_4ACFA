@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.example.projetmobile_4acfa.R;
 import com.example.projetmobile_4acfa.controller.MainController;
+import com.example.projetmobile_4acfa.controller.MainNavigation;
 import com.example.projetmobile_4acfa.model.Cooking;
 import com.example.projetmobile_4acfa.views.adapter.MyAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EntreeFragment()).commit();
     }
 
     public void showList(List<Cooking> input){
@@ -69,21 +71,41 @@ public class MainActivity extends AppCompatActivity {
 
                     switch(menuItem.getItemId()){
                         case R.id.nav_entree:
-                            fragment = new EntreeFragment();
+                            myController.onClickEntree();
                             break;
 
                         case R.id.nav_plat:
-                            fragment = new PlatFragment();
+                            myController.onClickPlat();
                             break;
 
                         case R.id.nav_dessert:
-                            fragment = new DessertFragment();
+                            myController.onClickDessert();
                             break;
                     }
 
-                    assert fragment != null;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                     return true;
                 }
             };
+
+    public void goTo(MainNavigation mainNavigation, String listJson) {
+        Fragment fragment = null;
+
+        switch(mainNavigation) {
+            case ENTREE:
+            case PLAT:
+            case DESSERT:
+                fragment = new EntreeFragment();
+                Bundle arg = new Bundle();
+                arg.putString("gson_list", listJson);
+                fragment.setArguments(arg);
+                break;
+        }
+        assert fragment != null;
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+    //Transmetre l'info au fragment
+    // Fragment Bundle Arguments
+    // Passe la liste sous le format Json car le format Json est un string
+    // Utiliser Gson toJson et fromJson et vu que c'est une List il faut utiliser un TypeToken
 }
