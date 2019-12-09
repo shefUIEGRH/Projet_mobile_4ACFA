@@ -3,10 +3,12 @@ package com.example.projetmobile_4acfa.views.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.projetmobile_4acfa.R;
 import com.example.projetmobile_4acfa.model.Cooking;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -43,12 +45,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava>{
         public TextView txtHeader;
         public TextView txtFooter;
         public View layout;
+        public ImageView image;
 
 
         //Constructeur
         public CelluleJava(View v) {
             super(v);
             layout = v;
+            image = (ImageView) v.findViewById(R.id.img);
             txtHeader = (TextView) v.findViewById(R.id.firstLine);
             txtFooter = (TextView) v.findViewById(R.id.secondLine);
 
@@ -73,13 +77,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava>{
         final String name = currentRecette.getName();
         final String categorie = currentRecette.getCategory();
 
+        holder.itemView.getContext();
+        Picasso.get().load(currentRecette.getImg()).into(holder.image); //.with(Context)
+
         holder.txtHeader.setText(name);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onItemClick(currentRecette);
             }
-
 
         });
         holder.txtFooter.setText("Catégorie : " + categorie);
