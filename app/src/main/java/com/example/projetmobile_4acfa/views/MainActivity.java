@@ -3,21 +3,29 @@ package com.example.projetmobile_4acfa.views;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import com.example.projetmobile_4acfa.R;
 import com.example.projetmobile_4acfa.controller.MainController;
 import com.example.projetmobile_4acfa.controller.MainNavigation;
 import com.example.projetmobile_4acfa.model.Cooking;
 import com.example.projetmobile_4acfa.views.adapter.MyAdapter;
+import com.example.projetmobile_4acfa.views.fragments.EntreeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.example.projetmobile_4acfa.R.id;
+import static com.example.projetmobile_4acfa.R.layout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,21 +35,92 @@ public class MainActivity extends AppCompatActivity {
     private MainController myController;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.my_recycler_view);
+        setContentView(layout.activity_main);
+        recyclerView = findViewById(id.my_recycler_view);
 
         myController = new MainController(this, getSharedPreferences("key", Context.MODE_PRIVATE));
         myController.onStart();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        BottomNavigationView bottomNav = findViewById(id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EntreeFragment()).commit();
+
+        Toolbar toolbar = findViewById(id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setSubtitle("l'envie de cuisiner");
+       // toolbar.setLogo(R.drawable.logo);
+
     }
 
-    public void showList(List<Cooking> input){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    /*    MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                // Method called when the search view is expand.
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Method called when the search view is closed.
+                return true;
+            }
+        });
+
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override public boolean onQueryTextSubmit(String query) {
+                // Method called when the search is submitted.
+                onQueryTextSubmit(query);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override public boolean onQueryTextChange(String newText) {
+                if (newText == null || newText.length() < 3) {
+                    return false;
+                }
+                // Method called when the text in the search view changes.
+                return true;
+            }
+        });
+
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));*/
+
+        return true;
+    }
+       // SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+       //
+
+      //  searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+      //  searchView.setIconifiedByDefault(false);
+
+
+        public void showList(List<Cooking> input){
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -70,15 +149,15 @@ public class MainActivity extends AppCompatActivity {
                    Fragment fragment = null;
 
                     switch(menuItem.getItemId()){
-                        case R.id.nav_entree:
+                        case id.nav_entree:
                             myController.onClickEntree();
                             break;
 
-                        case R.id.nav_plat:
+                        case id.nav_plat:
                             myController.onClickPlat();
                             break;
 
-                        case R.id.nav_dessert:
+                        case id.nav_dessert:
                             myController.onClickDessert();
                             break;
                     }
@@ -101,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         assert fragment != null;
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(id.fragment_container, fragment).commit();
     }
 
     //Transmetre l'info au fragment

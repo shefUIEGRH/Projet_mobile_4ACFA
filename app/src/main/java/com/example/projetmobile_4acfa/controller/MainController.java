@@ -27,7 +27,6 @@ public class MainController {
     private SharedPreferences pref;
     private static final String KEY_ = "key";
     private static MainController ctr = null;
-
     private List<Cooking> listRecette;
 
     // constructeur
@@ -54,6 +53,7 @@ public class MainController {
             }.getType();
             listRecette = new Gson().fromJson(list, listType);
             onClickEntree();
+
             //myActivity.showList(listRecette);
         }
         else{

@@ -1,4 +1,4 @@
-package com.example.projetmobile_4acfa.views;
+package com.example.projetmobile_4acfa.views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

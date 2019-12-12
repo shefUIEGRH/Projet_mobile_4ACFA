@@ -9,7 +9,7 @@
         android:icon="@mipmap/cookware_ic"
         android:label="CookWare !"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity android:name=".splash.SplashActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.MainActivity"/>
+        <activity android:name=".views.MainActivity">
+        </activity>
     </application>
 
 </manifest>
