@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 
@@ -31,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private MainController myController;
-
 
 
     @Override
@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.search, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search, menu);
+
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
@@ -73,52 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
                 return false;
             }
         });
-    /*    MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                // Method called when the search view is expand.
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                // Method called when the search view is closed.
-                return true;
-            }
-        });
-
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override public boolean onQueryTextSubmit(String query) {
-                // Method called when the search is submitted.
-                onQueryTextSubmit(query);
-                searchView.clearFocus();
-                return true;
-            }
-
-            @Override public boolean onQueryTextChange(String newText) {
-                if (newText == null || newText.length() < 3) {
-                    return false;
-                }
-                // Method called when the text in the search view changes.
-                return true;
-            }
-        });
-
-        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));*/
 
         return true;
     }
-       // SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-       //
-
-      //  searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-      //  searchView.setIconifiedByDefault(false);
-
 
         public void showList(List<Cooking> input){
 

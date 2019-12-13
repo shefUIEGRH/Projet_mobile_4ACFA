@@ -48,8 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
 
     public class CelluleJava extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView txtHeader;
-        public TextView txtFooter;
+        public TextView txtHeader, txtFooter, txtPers, txtDiff, txtTps;
         public View layout;
         public ImageView image;
 
@@ -59,8 +58,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
             super(v);
             layout = v;
             image = (ImageView) v.findViewById(R.id.img);
-            txtHeader = (TextView) v.findViewById(R.id.firstLine);
-            txtFooter = (TextView) v.findViewById(R.id.secondLine);
+            txtHeader = (TextView) v.findViewById(R.id.title);
+            txtFooter = (TextView) v.findViewById(R.id.categorie);
+            txtPers = (TextView) v.findViewById(R.id.personne);
+            txtDiff = (TextView) v.findViewById(R.id.diff);
+            txtTps = (TextView) v.findViewById(R.id.tps);
 
         }
 
@@ -82,6 +84,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
         final Cooking currentRecette = recettes.get(position);
         final String name = currentRecette.getName();
         final String categorie = currentRecette.getCategory();
+        final String personne = currentRecette.getPerson();
+        final String difficulte = currentRecette.getDiff();
+        final String temps = currentRecette.getTime();
+
 
         holder.itemView.getContext();
         Picasso.get().load(currentRecette.getImg()).into(holder.image); //.with(Context)
@@ -90,11 +96,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(currentRecette);
+                   listener.onItemClick(currentRecette);
+
             }
 
         });
         holder.txtFooter.setText("Catégorie : " + categorie);
+        holder.txtPers.setText("Personnes : " + personne);
+        holder.txtDiff.setText("Difficulté : " + difficulte);
+        holder.txtTps.setText("Temps de préparation : " + temps);
 
     }
 
