@@ -1,11 +1,13 @@
 package com.example.projetmobile_4acfa.views.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.projetmobile_4acfa.R;
@@ -50,9 +52,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
 
     public class CelluleJava extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView txtHeader, txtFooter, txtPers, txtDiff, txtTps;
+        public TextView txtHeader, txtFooter, txtPers, txtDiff, txtTps, txtcomment;
         public View layout, divider;
         public ImageView image;
+        public RatingBar mystar;
 
 
         //Constructeur
@@ -66,6 +69,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
             txtPers = (TextView) v.findViewById(R.id.personne);
             txtDiff = (TextView) v.findViewById(R.id.diff);
             txtTps = (TextView) v.findViewById(R.id.tps);
+            mystar = (RatingBar) v.findViewById(R.id.ratingbar);
+            txtcomment = (TextView) v.findViewById(R.id.ratingscale);
 
         }
 
@@ -105,6 +110,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
                     holder.txtDiff.setVisibility(View.VISIBLE);
                     holder.txtTps.setVisibility(View.VISIBLE);
                     holder.divider.setVisibility(View.VISIBLE);
+                    holder.mystar.setVisibility(View.VISIBLE);
+                    holder.txtcomment.setVisibility(View.VISIBLE);
                 }
                 else{
                     holder.txtFooter.setVisibility(View.GONE);
@@ -112,6 +119,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
                     holder.txtDiff.setVisibility(View.GONE);
                     holder.txtTps.setVisibility(View.GONE);
                     holder.divider.setVisibility(View.GONE);
+                    holder.mystar.setVisibility(View.GONE);
+                    holder.txtcomment.setVisibility(View.GONE);
                 }
 
 
@@ -121,6 +130,38 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
         holder.txtPers.setText("Personnes : " + personne);
         holder.txtDiff.setText("Difficulté : " + difficulte);
         holder.txtTps.setText("Temps de préparation : " + temps);
+
+        holder.mystar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                holder.txtcomment.setText(String.valueOf(rating));
+                switch ((int) ratingBar.getRating()){
+                    case 1:
+                        holder.txtcomment.setText("Vraiment pas bon !");
+                        holder.txtcomment.setTextColor(Color.parseColor("#FF0000"));
+                        break;
+                    case 2:
+                        holder.txtcomment.setText("Peut être meilleur...");
+                        holder.txtcomment.setTextColor(Color.parseColor("#D81B60"));
+                        break;
+                    case 3:
+                        holder.txtcomment.setText("Mitigé");
+                        holder.txtcomment.setTextColor(Color.parseColor("#FF8C00"));
+                        break;
+                    case 4:
+                        holder.txtcomment.setText("Super bon");
+                        holder.txtcomment.setTextColor(Color.parseColor("#3CB371"));
+                        break;
+                    case 5:
+                        holder.txtcomment.setText("Excellent, j'adore !!");
+                        holder.txtcomment.setTextColor(Color.parseColor("#1E90FF"));
+                        break;
+
+                    default:
+                        holder.txtcomment.setText("");
+                }
+            }
+        });
 
     }
 
