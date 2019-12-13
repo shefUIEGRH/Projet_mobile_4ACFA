@@ -22,6 +22,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
     private List<Cooking> recettes;
     private final OnItemClickListener listener;
     private List<Cooking> listcookingfilter;
+    private boolean showContent = false;
+
 
 
     public interface OnItemClickListener {
@@ -49,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
     public class CelluleJava extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView txtHeader, txtFooter, txtPers, txtDiff, txtTps;
-        public View layout;
+        public View layout, divider;
         public ImageView image;
 
 
@@ -57,6 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
         public CelluleJava(View v) {
             super(v);
             layout = v;
+            divider = (View) v.findViewById(R.id.divider);
             image = (ImageView) v.findViewById(R.id.img);
             txtHeader = (TextView) v.findViewById(R.id.title);
             txtFooter = (TextView) v.findViewById(R.id.categorie);
@@ -78,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
     }
 
     @Override
-    public void onBindViewHolder(CelluleJava holder, final int position) {
+    public void onBindViewHolder(final CelluleJava holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final Cooking currentRecette = recettes.get(position);
@@ -88,18 +91,31 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
         final String difficulte = currentRecette.getDiff();
         final String temps = currentRecette.getTime();
 
-
         holder.itemView.getContext();
         Picasso.get().load(currentRecette.getImg()).into(holder.image); //.with(Context)
 
         holder.txtHeader.setText(name);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   listener.onItemClick(currentRecette);
+                showContent =!showContent;
+                if(showContent == true) {
+                    holder.txtFooter.setVisibility(View.VISIBLE);
+                    holder.txtPers.setVisibility(View.VISIBLE);
+                    holder.txtDiff.setVisibility(View.VISIBLE);
+                    holder.txtTps.setVisibility(View.VISIBLE);
+                    holder.divider.setVisibility(View.VISIBLE);
+                }
+                else{
+                    holder.txtFooter.setVisibility(View.GONE);
+                    holder.txtPers.setVisibility(View.GONE);
+                    holder.txtDiff.setVisibility(View.GONE);
+                    holder.txtTps.setVisibility(View.GONE);
+                    holder.divider.setVisibility(View.GONE);
+                }
+
 
             }
-
         });
         holder.txtFooter.setText("Catégorie : " + categorie);
         holder.txtPers.setText("Personnes : " + personne);
