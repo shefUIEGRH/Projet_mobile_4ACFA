@@ -2,6 +2,7 @@ package com.example.projetmobile_4acfa.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         myController = new MainController(this, getSharedPreferences("key", Context.MODE_PRIVATE));
         myController.onStart();
 
+
         BottomNavigationView bottomNav = findViewById(id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EntreeFragment()).commit();
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setSubtitle("l'envie de cuisiner");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setSubtitleTextColor(Color.WHITE);
        // toolbar.setLogo(R.drawable.logo);
 
     }
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
 
         public void showList(List<Cooking> input){
 

@@ -17,41 +17,21 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="78dp"
-        android:layout_marginLeft="78dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginRight="71dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginTop="600dp"
         android:fontFamily="sans-serif"
         android:text="Chargement ..."
         android:textAlignment="center"
         android:textColor="#E91E63"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="189dp"
-        android:layout_height="252dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginLeft="108dp"
-        android:layout_marginEnd="113dp"
-        android:layout_marginRight="113dp"
-        android:layout_marginBottom="412dp"
+        android:layout_width="121dp"
+        android:layout_height="155dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:src="@mipmap/cookware_ic" />
 
     <ProgressBar
@@ -60,16 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginLeft="11dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="143dp" />
+        android:layout_marginBottom="145dp" />
 
 
 </RelativeLayout>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:fitsSystemWindows="true"
-    android:background="@color/design_default_color_primary"
+    android:background="@color/orange"
     android:theme="@style/Base.Theme.MaterialComponents.Light.DarkActionBar"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:layout_scrollFlags="scroll|enterAlways"
