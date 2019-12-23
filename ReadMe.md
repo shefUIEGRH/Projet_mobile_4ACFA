@@ -31,6 +31,14 @@
 <li>Icône de l’application modifiée</li>
 </ul>
 <h2 id="ce-que-jai-appris">Ce que j’ai appris</h2>
+<ul>
+  <li> Créer sa propre API rest </li>
+  <li> Savoir utiliser les Fragments et à quoi ils servent </li>
+  <li> Amélioration de nos bases acquises en programmation mobile lors de la 3A en java et avec l'IDE Android Studio </li>
+  <li> Manipuler les outils pour rendre plus jolie l'application </li>
+  <li> Bien architecturer son code et savoir mieux utiliser git</li>
+  <li> Filtrer une API avant de l'afficher </li>
+</ul>
 <h2 id="captures-décran">Captures d’écran</h2>
 <ol>
 <li>
