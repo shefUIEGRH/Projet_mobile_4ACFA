@@ -25,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.example.projetmobile_4acfa.R.id;
 import static com.example.projetmobile_4acfa.R.layout;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private MyAdapter mAdapter;
     private MainController myController;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -57,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
        // toolbar.setLogo(R.drawable.logo);
+
+        swipeRefreshLayout = findViewById(id.refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //réafficher liste
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
     }
 
@@ -90,25 +102,25 @@ public class MainActivity extends AppCompatActivity {
 
         public void showList(List<Cooking> input){
 
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(input, new MyAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Cooking item) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                intent.putExtra("nom",item.getName());
-                intent.putExtra("categorie", item.getCategory());
-                intent.putExtra("temps", item.getTime());
-                intent.putExtra("difficult", item.getDiff());
-                intent.putExtra("personnes", item.getPerson());
-                intent.putExtra("photo", item.getImg());
-                MainActivity.this.startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(mAdapter);
+            recyclerView.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            mAdapter = new MyAdapter(input, new MyAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Cooking item) {
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    intent.putExtra("nom",item.getName());
+                    intent.putExtra("categorie", item.getCategory());
+                    intent.putExtra("temps", item.getTime());
+                    intent.putExtra("difficult", item.getDiff());
+                    intent.putExtra("personnes", item.getPerson());
+                    intent.putExtra("photo", item.getImg());
+                    MainActivity.this.startActivity(intent);
+                }
+            });
+            recyclerView.setAdapter(mAdapter);
 
-    }
+        }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

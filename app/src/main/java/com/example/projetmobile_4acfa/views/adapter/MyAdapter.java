@@ -80,6 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CelluleJava> imple
         recettes.add(position, item);
         notifyItemInserted(position);
     }
+
     public void remove(int position) {
         recettes.remove(position);
         notifyItemRemoved(position);
